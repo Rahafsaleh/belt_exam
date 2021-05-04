@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Hello {{ this_user.first_name }}!</h3>
+    <p><a href="/logout">logout</a></p>
+    <a href="/dashboard/new_trip"><button>Create a new Trip!</button></a>
+
+    <p>Your trips:</p>
+    <table>
+        <thead>
+            <tr>
+                <td>Destination</td>
+                <td>Start Date</td>
+                <td>End Date</td>
+                <td>Plan</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for plan in userplan_sorted %}
+
+            <tr>
+                <td><a href="/dashboard/show_trip/{{plan.id}}">{{plan.destination }}</a></td>
+                <td>{{ plan.start_date }}</td>
+                <td>{{ plan.end_date }}</td>
+                <td>{{ plan.plan }}</td>
+                <td>
+                    <a href="/dashboard/delete/{{plan.id}}">Remove</a>
+                    <a href="/dashboard/edit/{{plan.id}}">Edit</a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% for plan in join_trip %}
+            <tr>
+                <td><a href="/dashboard/show_trip/{{plan.id}}">{{plan.destination }}</a></td>
+                <td>{{ plan.start_date }}</td>
+                <td>{{ plan.end_date }}</td>
+                <td>{{ plan.plan }}</td>
+                <td><a href="/dashboard/cancel/{{plan.id}}">Cancel</a></td>
+            </tr>
+            {% endfor %}
+
+
+        </tbody>
+    </table>
+
+
+    <table>
+        <thead>
+            <tr>
+                <td>Destination</td>
+                <td>Start Date</td>
+                <td>End Date</td>
+                <td>Plan</td>
+                <td>Want to join?</td>
+            </tr>
+        </thead>
+        <tbody>
+             {% for trip in other_trip %}
+        <tr>
+            <td><a href="/dashboard/show_trip/{{trip.id}}">{{trip.destination }}</a></td>
+            <td>{{ trip.start_date }}</td>
+            <td>{{ trip.end_date }}</td>
+            <td>{{ trip.plan }}</td>
+            <td><a href="/dashboard/join/{{trip.id}}">Join</a></td> 
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+       
+</body>
+</html>
